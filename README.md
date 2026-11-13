@@ -5,6 +5,13 @@ To build a production-grade evaluation pipeline for the JioAI assistant, ensurin
 
 This project addresses the core JioFrames AI requirements: fine-tuning multilingual speech models, building agentic RAG workflows, and establishing robust CI-gated evaluation frameworks.
 
+## Results
+<img width="625" height="358" alt="Capture1" src="https://github.com/user-attachments/assets/8e299532-81eb-4175-af54-413691edce3a" />
+<img width="546" height="240" alt="Capture2" src="https://github.com/user-attachments/assets/1a3c00f4-8f61-40cb-b443-70b4f377bbec" />
+<img width="829" height="138" alt="Capture3" src="https://github.com/user-attachments/assets/3c183a8e-fb69-4d4c-ad55-6c95776bdadf" />
+<img width="838" height="136" alt="Capture4" src="https://github.com/user-attachments/assets/46501f1a-76a1-4746-ab0d-ba350dced517" />
+<img width="402" height="322" alt="Capture5" src="https://github.com/user-attachments/assets/09a5a2fe-63b4-44e3-a68b-63e1ac3898e6" />
+
 ## The Stack
 *   **ASR Fine-Tuning:** Whisper-small (LoRA/PEFT)
 *   **Agentic Brain:** LangGraph (Hinglish routing, RAG, and graceful fallback)
@@ -53,20 +60,12 @@ Metric	Qwen 1.5B	Qwen 3B
 Faithfulness	0.90 (PASS)	0.70 (FAIL)
 Latency	6m 35s	52m 39s
 Finding: The smaller 1.5B model was 8x faster and passed the faithfulness gate, while the 3B model failed due to hallucinations. For local CI evaluation, smaller grounded models are better than larger hallucinators.
+
+
   
 ## Architecture
 
-flowchart TD
-    A[User Audio] -->|Whisper + LoRA| B(Hinglish Text)
-    B --> C{LangGraph Router}
-    C -->|On-Topic| D[RAG Node]
-    C -->|Off-Topic| E[Fallback Node]
-    D --> F[Grounded Hinglish Answer]
-    E --> F
-    F --> G{RAGAS CI Gate}
-    G -->|Faithfulness < 0.80| H[Block Deployment]
-    G -->|Faithfulness >= 0.80| I[Deploy]
-
+<img width="1390" height="3123" alt="deepseek_mermaid_20261113_0c0264" src="https://github.com/user-attachments/assets/7048f811-55f9-42cc-a23e-18fb3441af6d" />
 
 # How to Run Locally
 Install dependencies:
